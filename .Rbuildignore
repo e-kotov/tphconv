@@ -9,3 +9,5 @@
 ^docs$
 ^pkgdown$
 ^private$
+^CITATION\.cff$
+^codemeta\.json$

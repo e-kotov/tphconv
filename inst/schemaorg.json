@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "type": "SoftwareSourceCode",
+  "author": {
+    "id": "https://orcid.org/0000-0001-6690-5345"
+  },
+  "codeRepository": "https://github.com/e-kotov/tphconv",
+  "copyrightHolder": {
+    "id": "https://orcid.org/0000-0001-6690-5345",
+    "type": "Person",
+    "email": "kotov.egor@gmail.com",
+    "familyName": "Kotov",
+    "givenName": "Egor"
+  },
+  "description": "Convert Transport Poverty Hub Data to Rasters and Vectors. The source data comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data more efficiently, this package provides helper functions to quickly convert this data to spatial raster grids and vector polygon grids.",
+  "license": "https://spdx.org/licenses/MIT",
+  "name": "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors",
+  "programmingLanguage": {
+    "type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
+  "version": "0.0.0.9000"
+}

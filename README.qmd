@@ -89,6 +89,26 @@ max value   :                61065
 
 -   `tph_to_raster()` – Reads a CSV, reprojects, and rasterizes accessibility data into a SpatRaster or writes it to disk.
 
-# License & Citation
+# License
 
-Licensed under MIT. Data from the Transport Poverty Hub Dashboard is available under CC-BY-4.0, with reuse policy outlined by the [EU Commission Decision of 12 December 2011](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011D0833).
+The package is licensed under MIT. Data from the Transport Poverty Hub Dashboard is available under CC-BY-4.0, with reuse policy outlined by the [EU Commission Decision of 12 December 2011](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011D0833).
+
+# Citation
+
+```{r}
+#| eval: true
+#| echo: false
+#| results: 'asis'
+print(citation("tphconv"), bibtex = FALSE)
+```
+
+BibTeX:
+
+```
+```{r}
+#| eval: true
+#| echo: false
+#| results: 'asis'
+toBibtex(citation("tphconv"))
+```
+```
