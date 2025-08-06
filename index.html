@@ -77,6 +77,7 @@
 <div class="section level1">
 <h1 id="usage-examples">Usage Examples<a class="anchor" aria-label="anchor" href="#usage-examples"></a>
 </h1>
+<p>Most defaults should work as long as the data provider does not change the format of the CSV files. The package is designed to handle the standard format used by the Transport Poverty Hub, but arguments can be adjusted if necessary.</p>
 <div class="section level2">
 <h2 id="convert-a-csv-to-a-raster">Convert a CSV to a Raster<a class="anchor" aria-label="anchor" href="#convert-a-csv-to-a-raster"></a>
 </h2>
@@ -91,12 +92,11 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Convert to a SpatRaster</span></span>
-<span><span class="va">raster_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tph_to_raster.html">tph_to_raster</a></span><span class="op">(</span></span>
-<span>  input_file <span class="op">=</span> <span class="va">tph_file</span>,</span>
-<span>  resolution_m <span class="op">=</span> <span class="fl">1000</span>  <span class="co"># 1 km cell size</span></span>
-<span><span class="op">)</span></span>
+<span><span class="va">raster_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tph_to_raster.html">tph_to_raster</a></span><span class="op">(</span>input_file <span class="op">=</span> <span class="va">tph_file</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">raster_layer</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">raster_layer</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/luxembourg.png"></p>
 </div>
 <div class="section level2">
 <h2 id="write-raster-to-disk">Write Raster to Disk<a class="anchor" aria-label="anchor" href="#write-raster-to-disk"></a>
@@ -110,7 +110,17 @@
 <span></span>
 <span><span class="co"># Check the output</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">output_path</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">g</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">tmp_file</span><span class="op">)</span>  <span class="co"># Clean up temporary file</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>class       <span class="sc">:</span> SpatRaster </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>size        <span class="sc">:</span> <span class="dv">80</span>, <span class="dv">55</span>, <span class="dv">1</span>  (nrow, ncol, nlyr)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>resolution  <span class="sc">:</span> <span class="dv">1000</span>, <span class="dv">1000</span>  (x, y)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>extent      <span class="sc">:</span> <span class="dv">4016000</span>, <span class="dv">4071000</span>, <span class="dv">2935000</span>, <span class="dv">3015000</span>  (xmin, xmax, ymin, ymax)</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>coord. ref. <span class="sc">:</span> ETRS89<span class="sc">-</span>extended <span class="sc">/</span> LAEA <span class="fu">Europe</span> (EPSG<span class="sc">:</span><span class="dv">3035</span>) </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>source      <span class="sc">:</span> file10888755abebd.tiff </span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>name        <span class="sc">:</span> opportunities_people </span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>min value   <span class="sc">:</span>                    <span class="dv">0</span> </span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>max value   <span class="sc">:</span>                <span class="dv">61065</span> </span></code></pre></div>
 </div>
 </div>
 <div class="section level1">
