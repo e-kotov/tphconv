@@ -1,0 +1,77 @@
+---
+title: "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors"
+format: gfm
+default-image-extension: ""
+---
+
+# Overview
+
+**tphconv** is an R package for converting public transport accessibility data from the Transport Poverty Hub into spatial formats. It’s designed to:
+
+-   [x] Read gzipped CSV files containing point-based accessibility measures (e.g., number of people reachable within 10–20 minutes by public transport).
+-   [x] Reproject WGS84 (EPSG:4326) coordinates into a target grid
+  (default EPSG:3035) and perform necessary offset for the data to line up with GISCO INSPIRE grids (https://ec.europa.eu/eurostat/web/gisco/geodata/grids, https://ec.europa.eu/eurostat/web/gisco/geodata/population-distribution/population-grids).
+-   [x] Rasterize the point data onto a regular grid (e.g., 1 km resolution) or generate vector polygon grids.
+-   [ ] Convert to vector polygons for further analysis.
+
+This makes it easy to integrate transport accessibility information into GIS workflows for analysis and visualization.
+
+# Installation
+
+You can install the development version of **tphconv** from GitHub:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("ekotov/tphconv")
+```
+
+# Data Source
+
+Accessibility data is provided by the [Transport Poverty Hub Dashboard](https://jeodpp.jrc.ec.europa.eu/eu/vaas/voila/render/mobitrans/transportpoverty/TransportPovertyHub.ipynb), which requires a free EU account to log in. The dashboard allows you to download precomputed CSV files on a 1 km grid for various countries, including Luxembourg.
+
+Once you have downloaded a file (e.g., `ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz`), you can point **tphconv** to it directly.
+
+# Usage Examples
+
+## Convert a CSV to a Raster
+
+``` r
+library(tphconv)
+
+# Locate the example data shipped with the package
+tph_file <- system.file(
+  "extdata",
+  "ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz",
+  package = "tphconv"
+)
+
+# Convert to a SpatRaster
+raster_layer <- tph_to_raster(
+  input_file = tph_file,
+  resolution_m = 1000  # 1 km cell size
+)
+
+plot(raster_layer)
+```
+
+## Write Raster to Disk
+
+``` r
+tmp_file <- tempfile(fileext = ".tiff")
+output_path <- tph_to_raster(
+  input_file = tph_file,
+  out_raster_file = tmp_file
+)
+
+# Check the output
+g <- terra::rast(output_path)
+plot(g)
+```
+
+# Functions
+
+-   `tph_to_raster()` – Reads a CSV, reprojects, and rasterizes accessibility data into a SpatRaster or writes it to disk.
+
+# License & Citation
+
+Licensed under MIT. Data from the Transport Poverty Hub Dashboard is available under CC-BY-4.0, with reuse policy outlined by the [EU Commission Decision of 12 December 2011](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011D0833).
