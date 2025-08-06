@@ -45,6 +45,11 @@ Once you have downloaded a file (e.g.,
 
 # Usage Examples
 
+Most defaults should work as long as the data provider does not change
+the format of the CSV files. The package is designed to handle the
+standard format used by the Transport Poverty Hub, but arguments can be
+adjusted if necessary.
+
 ## Convert a CSV to a Raster
 
 ``` r
@@ -58,13 +63,13 @@ tph_file <- system.file(
 )
 
 # Convert to a SpatRaster
-raster_layer <- tph_to_raster(
-  input_file = tph_file,
-  resolution_m = 1000  # 1 km cell size
-)
+raster_layer <- tph_to_raster(input_file = tph_file)
 
+library(terra)
 plot(raster_layer)
 ```
+
+![](man/figures/luxembourg.png)
 
 ## Write Raster to Disk
 
@@ -77,8 +82,19 @@ output_path <- tph_to_raster(
 
 # Check the output
 g <- terra::rast(output_path)
-plot(g)
+g
+unlink(tmp_file)  # Clean up temporary file
 ```
+
+    class       : SpatRaster 
+    size        : 80, 55, 1  (nrow, ncol, nlyr)
+    resolution  : 1000, 1000  (x, y)
+    extent      : 4016000, 4071000, 2935000, 3015000  (xmin, xmax, ymin, ymax)
+    coord. ref. : ETRS89-extended / LAEA Europe (EPSG:3035) 
+    source      : file10888755abebd.tiff 
+    name        : opportunities_people 
+    min value   :                    0 
+    max value   :                61065 
 
 # Functions
 
