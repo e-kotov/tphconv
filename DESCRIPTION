@@ -10,7 +10,8 @@ Description: Convert Transport Poverty Hub Data to Rasters and Vectors.
     provides helper functions to quickly convert this data to spatial
     raster grids and vector polygon grids.
 License: MIT + file LICENSE
-URL: http://www.ekotov.pro/tphconv/
+URL: https://github.com/e-kotov/tphconv, http://www.ekotov.pro/tphconv/
+BugReports: https://github.com/e-kotov/tphconv/issues
 Imports: 
     fs,
     readr,

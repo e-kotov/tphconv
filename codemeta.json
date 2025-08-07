@@ -4,7 +4,9 @@
   "identifier": "tphconv",
   "description": "Convert Transport Poverty Hub Data to Rasters and Vectors. The source data comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data more efficiently, this package provides helper functions to quickly convert this data to spatial raster grids and vector polygon grids.",
   "name": "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors",
+  "relatedLink": "http://www.ekotov.pro/tphconv/",
   "codeRepository": "https://github.com/e-kotov/tphconv",
+  "issueTracker": "https://github.com/e-kotov/tphconv/issues",
   "license": "https://spdx.org/licenses/MIT",
   "version": "0.0.0.9000",
   "programmingLanguage": {
@@ -106,7 +108,6 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "51.903KB",
-  "relatedLink": "http://www.ekotov.pro/tphconv/",
+  "fileSize": "52.113KB",
   "readme": "https://github.com/e-kotov/tphconv/blob/main/README.md"
 }

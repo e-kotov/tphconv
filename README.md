@@ -28,7 +28,7 @@ You can install the development version of **tphconv** from GitHub:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("ekotov/tphconv")
+remotes::install_github("e-kotov/tphconv")
 ```
 
 # Data Source
@@ -108,11 +108,14 @@ Dashboard is available under CC-BY-4.0, with reuse policy outlined by
 the [EU Commission Decision of 12 December
 2011](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011D0833).
 
+# Citation
+
 To cite package ‘tphconv’ in publications use:
 
 Kotov E (2025). *tphconv: Convert Transport Poverty Hub Data to Rasters
-and Vectors*. R package version 0.0.0.9000,
-<http://www.ekotov.pro/tphconv/>.
+and Vectors*. R package version 0.0.0.9000, commit
+f72972255e7f386cf49744ea1c82d299ba1bdb10,
+<https://github.com/e-kotov/tphconv>.
 
 BibTeX:
 
@@ -120,6 +123,6 @@ BibTeX:
       title = {tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors},
       author = {Egor Kotov},
       year = {2025},
-      note = {R package version 0.0.0.9000},
-      url = {http://www.ekotov.pro/tphconv/},
+      note = {R package version 0.0.0.9000, commit f72972255e7f386cf49744ea1c82d299ba1bdb10},
+      url = {https://github.com/e-kotov/tphconv},
     }
