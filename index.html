@@ -37,6 +37,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/e-kotov/tphconv/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -66,7 +67,7 @@
 <p>You can install the development version of <strong>tphconv</strong> from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ekotov/tphconv"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"e-kotov/tphconv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="data-source">Data Source<a class="anchor" aria-label="anchor" href="#data-source"></a>
@@ -82,7 +83,7 @@
 <h2 id="convert-a-csv-to-a-raster">Convert a CSV to a Raster<a class="anchor" aria-label="anchor" href="#convert-a-csv-to-a-raster"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.ekotov.pro/tphconv/">tphconv</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/e-kotov/tphconv" class="external-link">tphconv</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Locate the example data shipped with the package</span></span>
 <span><span class="va">tph_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
@@ -135,19 +136,31 @@
 <h1 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h1>
 <p>The package is licensed under MIT. Data from the Transport Poverty Hub Dashboard is available under CC-BY-4.0, with reuse policy outlined by the <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011D0833" class="external-link">EU Commission Decision of 12 December 2011</a>.</p>
+</div>
+<div class="section level1">
+<h1 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h1>
 <p>To cite package ‘tphconv’ in publications use:</p>
-<p>Kotov E (2025). <em>tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors</em>. R package version 0.0.0.9000, <a href="http://www.ekotov.pro/tphconv/" class="uri">http://www.ekotov.pro/tphconv/</a>.</p>
+<p>Kotov E (2025). <em>tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors</em>. R package version 0.0.0.9000, commit f72972255e7f386cf49744ea1c82d299ba1bdb10, <a href="https://github.com/e-kotov/tphconv" class="external-link uri">https://github.com/e-kotov/tphconv</a>.</p>
 <p>BibTeX:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  title <span class="ot">=</span> {tphconv<span class="sc">:</span> Convert Transport Poverty Hub Data to Rasters and Vectors},</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  author <span class="ot">=</span> {Egor Kotov},</span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span>},</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  url <span class="ot">=</span> {http<span class="sc">:</span><span class="er">//</span>www.ekotov.pro<span class="sc">/</span>tphconv<span class="sc">/</span>},</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span>, commit f72972255e7f386cf49744ea1c82d299ba1bdb10},</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>e<span class="sc">-</span>kotov<span class="sc">/</span>tphconv},</span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 
-  </main><aside class="col-md-3"><div class="license">
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/e-kotov/tphconv/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/e-kotov/tphconv/issues" class="external-link">Report a bug</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
