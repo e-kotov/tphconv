@@ -9,10 +9,11 @@ tph_to_raster(
   out_column_name = NULL,
   crs_src = 4326,
   crs_dst = 3035,
-  x_offset = -500,
-  y_offset = -500,
+  x_offset = 0,
+  y_offset = 0,
   resolution_m = 1000,
-  out_raster_file = NULL
+  out_raster_file = NULL,
+  add_id = TRUE
 )
 }
 \arguments{
@@ -22,27 +23,38 @@ columns 'lon', 'lat', and one numeric data column.}
 \item{out_column_name}{Character or NULL. Name to assign to the data column in the output raster.
 If NULL (default), the original column name from the CSV is used.}
 
-\item{crs_src}{Integer or character. Source CRS (EPSG code or WKT); default is 4326. Normally, you should not change this, unless you know the data is in a different CRS.}
+\item{crs_src}{Integer or character. Source CRS (EPSG code or WKT); default is 4326.}
 
-\item{crs_dst}{Integer or character. Destination CRS (EPSG code or WKT); default is 3035. Normally, you should not change this. The function relies on the fact that the source of the Transport Poverty Hub input data is the standardized GISCO grid, so internally it offests the coordinates by 500 m to align with the grid. If you change the CRS, you may need to adjust this offset.}
+\item{crs_dst}{Integer or character. Destination CRS (EPSG code or WKT); default is 3035.}
 
-\item{x_offset}{Numeric. Offset applied to the projected coordinates to align with the GISCO (or some other) grid; default is 500 m. Normally, you should not change this, unless you know the data is in a different CRS.}
+\item{x_offset}{Numeric. An offset subtracted from the projected x-coordinate.
+This is used to convert the source point's reference (e.g., a lower-left
+corner) to the cell's theoretical centroid. For centroid-based data like
+GISCO, the default of 0 is correct.}
 
-\item{y_offset}{Numeric. Offset applied to the projected coordinates to align with the GISCO (or some other) grid; default is 500 m. Normally, you should not change this, unless you know the data is in a different CRS.}
+\item{y_offset}{Numeric. An offset subtracted from the projected y-coordinate,
+similar to \code{x_offset}.}
 
 \item{resolution_m}{Numeric. Cell size in units of the destination CRS; default is 1000 (1 km).}
 
 \item{out_raster_file}{Character or NULL. Output filename for the raster. If provided, the raster is
 written to this file (creating directories as needed) and the filename is returned.
 If NULL (default), the SpatRaster is returned directly.}
+
+\item{add_id}{Logical. If \code{TRUE} (the default), a second layer named "id" is
+added to the raster. This is a factor layer where the labels correspond to
+the INSPIRE-compliant grid cell ID for each cell.}
 }
 \value{
-If \code{file} is NULL, a \code{terra::SpatRaster} object with rasterized values.
-If \code{file} is provided, a character string of the file path is returned.
+If \code{out_raster_file} is \code{NULL}, a \code{terra::SpatRaster} object. This will be a
+multi-layer raster if \code{add_id = TRUE}. If \code{out_raster_file} is provided, a character
+string of the file path is returned.
 }
 \description{
-Reads a gzipped CSV of public transport accessibility data, reprojects point coordinates,
-and rasterizes the data onto a regular grid. Optionally writes the raster to disk.
+Reads a CSV file (optionally gzipped) of public transport accessibility data,
+reprojects point coordinates, and rasterizes the data onto a regular grid.
+Optionally, it can add a second raster layer containing INSPIRE-compliant
+grid cell IDs.
 }
 \examples{
 tph_file <- system.file(
@@ -50,22 +62,10 @@ tph_file <- system.file(
  "ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz",
  package = "tphconv"
 )
-# Convert a CSV file to a raster
-r <- tph_to_raster(
-  input_file = tph_file)
 library(terra)
-plot(r)
 
-# Convert a CSV file to a raster and write it to disk
-tmp_file <- tempfile(fileext = ".tiff")
-out_raster_file <- tph_to_raster(
-  input_file = tph_file,
-  out_raster_file = tmp_file
-)
-#' # Check the output file
-library(terra)
-r <- rast(out_raster_file)
-plot(r)
-unlink(tmp_file)
+# Convert a CSV to a raster with the ID layer (default)
+r_with_id <- tph_to_raster(input_file = tph_file)
+plot(r_with_id)
 
 }

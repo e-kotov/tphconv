@@ -87,9 +87,6 @@ tph_to_raster <- function(
   x_centroids <- coords_dst[, 1] - x_offset
   y_centroids <- coords_dst[, 2] - y_offset
 
-  # --- FIX: Snap coordinates to the grid centroids ---
-  # This corrects for floating-point inaccuracies from projection. First, find
-  # the lower-left corner of the cell, then add half the resolution.
   resolution_m <- as.numeric(resolution_m)
   x_ll <- floor(x_centroids / resolution_m) * resolution_m
   y_ll <- floor(y_centroids / resolution_m) * resolution_m
@@ -99,8 +96,13 @@ tph_to_raster <- function(
   x$lon <- NULL
   x$lat <- NULL
 
-  # Create an empty raster template
-  data_extent <- c(min(x$x), max(x$x), min(x$y), max(x$y))
+  xmin <- min(x_ll)
+  ymin <- min(y_ll)
+  # The max extent is the corner of the *last* cell
+  xmax <- max(x_ll) + resolution_m
+  ymax <- max(y_ll) + resolution_m
+  data_extent <- c(xmin, xmax, ymin, ymax)
+
   raster_template <- terra::rast(
     extent = data_extent,
     resolution = resolution_m,

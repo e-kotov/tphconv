@@ -16,6 +16,7 @@ Imports:
     fs,
     readr,
     sf,
+    sfheaders,
     terra
 Suggests: 
     testthat (>= 3.0.0)
