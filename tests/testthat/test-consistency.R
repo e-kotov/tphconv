@@ -124,4 +124,16 @@ test_that("specific gisco id matches output", {
     target_gisco_id,
     label = "The gisco_id label in the raster should match the expected ID"
   )
+
+  # test table
+  table_output <- tph_to_table(
+    tph_file,
+    out_column_name = "opportunities",
+    add_centroid_coords = FALSE,
+    add_gisco_corner_coords = FALSE
+  )
+  expect_true(
+    table_output[table_output$opportunities == 10955, ]$gisco_id ==
+      target_gisco_id
+  )
 })

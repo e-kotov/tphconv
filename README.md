@@ -45,6 +45,22 @@ Once you have downloaded a file (e.g.,
 `ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz`), you can point
 **tphconv** to it directly.
 
+# Functions
+
+- `tph_to_raster()` – Reads a CSV, reprojects, and rasterizes
+  accessibility data into a `SpatRaster` or writes it to disk if
+  `out_raster_file` is specified (with extensions that are supported by
+  `terra`).
+
+- `tph_to_vector()` – Reads a CSV, reprojects, and converts
+  accessibility data into a `SpatVector` or `sf` object, or writes it to
+  disk if `out_vector_file` is specified (with extensions that are
+  supported by `sf`, such as GPKG, GeoJSON, Shapefile, etc.).
+
+- `tph_to_table()` – Reads a CSV and returns a simple tibble with GISCO
+  IDs, optionally including centroid coordinates and GISCO lower left
+  corner coordinates.
+
 # Usage Examples
 
 Most defaults should work as long as the data provider does not change
@@ -180,17 +196,40 @@ unlink(tmp_file) # Clean up temporary file
     # ℹ 1,590 more rows
     # ℹ Use `print(n = ...)` to see more rows
 
-# Functions
+## Convert to simple table with GISCO IDs
 
-- `tph_to_raster()` – Reads a CSV, reprojects, and rasterizes
-  accessibility data into a `SpatRaster` or writes it to disk if
-  `out_raster_file` is specified (with extensions that are supported by
-  `terra`).
+This is the fastest function, as it does not create geometries, it only
+returns a table with original data and GISCO IDs, and optionally the
+original coordinates of the centroids and/or the coorindates of GISCO
+lower left corners of the grid cells.
 
-- `tph_to_vector()` – Reads a CSV, reprojects, and converts
-  accessibility data into a `SpatVector` or `sf` object, or writes it to
-  disk if `out_vector_file` is specified (with extensions that are
-  supported by `sf`, such as GPKG, GeoJSON, Shapefile, etc.).
+``` r
+library(tphconv)
+
+# Locate the example data shipped with the package
+tph_file <- system.file(
+  "extdata",
+  "ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz",
+  package = "tphconv"
+)
+
+# Convert to a tibble with GISCO IDs
+gisco_table <- tph_to_table(
+  input_file = tph_file,
+  add_centroid_coords = TRUE, # Optiona, Add centroid coordinates
+  add_gisco_corner_coords = TRUE # Optional, Add GISCO lower left corner coordinates
+)
+
+head(gisco_table)
+```
+
+                            gisco_id opportunities_people      lon      lat x_centroid y_centroid    x_ll    y_ll
+    1 CRS3035RES1000mN2934000E4033000                 2625 6.033336 49.45356    4033500    2934500 4033000 2934000
+    2 CRS3035RES1000mN2934000E4057000                  375 6.363958 49.46471    4057500    2934500 4057000 2934000
+    3 CRS3035RES1000mN2935000E4032000                 7463 6.018829 49.46205    4032500    2935500 4032000 2935000
+    4 CRS3035RES1000mN2935000E4033000                10955 6.032604 49.46254    4033500    2935500 4033000 2935000
+    5 CRS3035RES1000mN2935000E4034000                 4087 6.046380 49.46302    4034500    2935500 4034000 2935000
+    6 CRS3035RES1000mN2935000E4037000                 4804 6.087708 49.46447    4037500    2935500 4037000 2935000
 
 # License
 

@@ -43,4 +43,9 @@ vector is named with the corresponding cell indices.
 Computes standardized grid-cell identifiers for SpatVector, SpatRaster,
 or sf/sfc objects based on the lower-left (south-west) corner coordinates.
 }
+\details{
+This function acts as a wrapper that extracts coordinates from various
+spatial object types and passes them to the core logic in
+\code{generate_grid_id_from_coords}.
+}
 \keyword{internal}
