@@ -6,6 +6,8 @@
 
 * New function `tph_to_vector` to convert TPH data to a vector formats.
 
+* New function `tph_to_table` to convert TPH data to a simple table `data.frame`.
+
 # tphconv 0.0.0.9000 (2025-08-06)
 
 * Initial draft.
