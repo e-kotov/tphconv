@@ -7,8 +7,15 @@
 <url><loc>http://www.ekotov.pro/tphconv/SUPPORT.html</loc></url>
 <url><loc>http://www.ekotov.pro/tphconv/authors.html</loc></url>
 <url><loc>http://www.ekotov.pro/tphconv/index.html</loc></url>
+<url><loc>http://www.ekotov.pro/tphconv/news/index.html</loc></url>
 <url><loc>http://www.ekotov.pro/tphconv/reference/data_luxembourg.html</loc></url>
+<url><loc>http://www.ekotov.pro/tphconv/reference/generate_grid_id_from_coords.html</loc></url>
 <url><loc>http://www.ekotov.pro/tphconv/reference/index.html</loc></url>
+<url><loc>http://www.ekotov.pro/tphconv/reference/sanitize_names.html</loc></url>
+<url><loc>http://www.ekotov.pro/tphconv/reference/tph_generage_grid_id.html</loc></url>
 <url><loc>http://www.ekotov.pro/tphconv/reference/tph_to_raster.html</loc></url>
+<url><loc>http://www.ekotov.pro/tphconv/reference/tph_to_table.html</loc></url>
+<url><loc>http://www.ekotov.pro/tphconv/reference/tph_to_vector.html</loc></url>
+<url><loc>http://www.ekotov.pro/tphconv/reference/tph_to_vector_via_raster_slow.html</loc></url>
 </urlset>
 

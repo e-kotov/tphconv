@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Convert Transport Poverty Hub Data to Rasters and Vectors">
-<meta name="description" content="Convert Transport Poverty Hub Data to Rasters and Vectors. The source data comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data more efficiently, this package provides helper functions to quickly convert this data to spatial raster grids and vector polygon grids.">
-<meta property="og:description" content="Convert Transport Poverty Hub Data to Rasters and Vectors. The source data comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data more efficiently, this package provides helper functions to quickly convert this data to spatial raster grids and vector polygon grids.">
+<meta name="description" content="Convert Transport Poverty Hub Data to Rasters and Vectors. The source data comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data more efficiently, this package provides helper functions to quickly convert this data to spatial raster grids and vector polygon grids with GISCO IDs. Alternatively, GISCO IDs can be assigned to the data without any geometry generation in a data.frame with optional coordinates columns.">
+<meta property="og:description" content="Convert Transport Poverty Hub Data to Rasters and Vectors. The source data comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data more efficiently, this package provides helper functions to quickly convert this data to spatial raster grids and vector polygon grids with GISCO IDs. Alternatively, GISCO IDs can be assigned to the data without any geometry generation in a data.frame with optional coordinates columns.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tphconv</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -52,12 +53,13 @@
 <div class="section level1">
 <h1 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h1>
-<p><strong>tphconv</strong> is an R package for converting public transport accessibility data from the Transport Poverty Hub into spatial formats. It’s designed to:</p>
+<p><strong>tphconv</strong> is an R package for converting public transport accessibility data from the Transport Poverty Hub into raster and vector spatial formats with GISCO IDs. It’s designed to:</p>
 <ul class="task-list">
 <li><label><input type="checkbox" checked>Read gzipped CSV files containing point-based accessibility measures (e.g., number of people reachable within 10–20 minutes by public transport).</label></li>
 <li><label><input type="checkbox" checked>Reproject WGS84 (EPSG:4326) coordinates into a target grid (default EPSG:3035) and perform necessary offset for the data to line up with GISCO INSPIRE grids (<a href="https://ec.europa.eu/eurostat/web/gisco/geodata/grids" class="external-link uri">https://ec.europa.eu/eurostat/web/gisco/geodata/grids</a>, <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/population-distribution/population-grids" class="external-link uri">https://ec.europa.eu/eurostat/web/gisco/geodata/population-distribution/population-grids</a>).</label></li>
 <li><label><input type="checkbox" checked>Rasterize the point data onto a regular grid (e.g., 1 km resolution) or generate vector polygon grids.</label></li>
-<li><label><input type="checkbox">Convert to vector polygons for further analysis.</label></li>
+<li><label><input type="checkbox" checked>Convert to vector polygons for further analysis.</label></li>
+<li><label><input type="checkbox" checked>Generate GISCO IDs for each grid cell, which can be useful for linking with other datasets.</label></li>
 </ul>
 <p>This makes it easy to integrate transport accessibility information into GIS workflows for analysis and visualization.</p>
 </div>
@@ -74,6 +76,15 @@
 </h1>
 <p>Accessibility data is provided by the <a href="https://jeodpp.jrc.ec.europa.eu/eu/vaas/voila/render/mobitrans/transportpoverty/TransportPovertyHub.ipynb" class="external-link">Transport Poverty Hub Dashboard</a>, which requires a free EU account to log in. The dashboard allows you to download precomputed CSV files on a 1 km grid for various countries, including Luxembourg.</p>
 <p>Once you have downloaded a file (e.g., <code>ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz</code>), you can point <strong>tphconv</strong> to it directly.</p>
+</div>
+<div class="section level1">
+<h1 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
+</h1>
+<ul>
+<li><p><code><a href="reference/tph_to_raster.html">tph_to_raster()</a></code> – Reads a CSV, reprojects, and rasterizes accessibility data into a <code>SpatRaster</code> or writes it to disk if <code>out_raster_file</code> is specified (with extensions that are supported by <code>terra</code>).</p></li>
+<li><p><code><a href="reference/tph_to_vector.html">tph_to_vector()</a></code> – Reads a CSV, reprojects, and converts accessibility data into a <code>SpatVector</code> or <code>sf</code> object, or writes it to disk if <code>out_vector_file</code> is specified (with extensions that are supported by <code>sf</code>, such as GPKG, GeoJSON, Shapefile, etc.).</p></li>
+<li><p><code><a href="reference/tph_to_table.html">tph_to_table()</a></code> – Reads a CSV and returns a simple tibble with GISCO IDs, optionally including centroid coordinates and GISCO lower left corner coordinates.</p></li>
+</ul>
 </div>
 <div class="section level1">
 <h1 id="usage-examples">Usage Examples<a class="anchor" aria-label="anchor" href="#usage-examples"></a>
@@ -96,13 +107,25 @@
 <span><span class="va">raster_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tph_to_raster.html">tph_to_raster</a></span><span class="op">(</span>input_file <span class="op">=</span> <span class="va">tph_file</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">raster_layer</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">raster_layer</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Transport Poverty Hub Accessibility Data"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/luxembourg.png"></p>
+<p>Note that the raster layer also has the GISCO IDs by default (can be disabled with <code>add_id = FALSE</code>). In QGIS these will be visible in the Raster Attribute Table, otherwise they are just another numeric layer with labels.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">raster_layer</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>class       <span class="sc">:</span> SpatRaster </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>size        <span class="sc">:</span> <span class="dv">81</span>, <span class="dv">56</span>, <span class="dv">2</span>  (nrow, ncol, nlyr)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>resolution  <span class="sc">:</span> <span class="dv">1000</span>, <span class="dv">1000</span>  (x, y)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>extent      <span class="sc">:</span> <span class="dv">4015000</span>, <span class="dv">4071000</span>, <span class="dv">2934000</span>, <span class="dv">3015000</span>  (xmin, xmax, ymin, ymax)</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>coord. ref. <span class="sc">:</span> ETRS89<span class="sc">-</span>extended <span class="sc">/</span> LAEA <span class="fu">Europe</span> (EPSG<span class="sc">:</span><span class="dv">3035</span>) </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="fu">source</span>(s)   <span class="sc">:</span> memory</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>names       <span class="sc">:</span> opportunities_people,                        gisco_id </span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>min values  <span class="sc">:</span>                    <span class="dv">0</span>, CRS3035RES1000mN3014000E4036000 </span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>max values  <span class="sc">:</span>                <span class="dv">61065</span>, CRS3035RES1000mN2934000E4057000 </span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="write-raster-to-disk">Write Raster to Disk<a class="anchor" aria-label="anchor" href="#write-raster-to-disk"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".tiff"</span><span class="op">)</span></span>
 <span><span class="va">output_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tph_to_raster.html">tph_to_raster</a></span><span class="op">(</span></span>
 <span>  input_file <span class="op">=</span> <span class="va">tph_file</span>,</span>
@@ -112,25 +135,108 @@
 <span><span class="co"># Check the output</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">output_path</span><span class="op">)</span></span>
 <span><span class="va">g</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">tmp_file</span><span class="op">)</span>  <span class="co"># Clean up temporary file</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>class       <span class="sc">:</span> SpatRaster </span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>size        <span class="sc">:</span> <span class="dv">80</span>, <span class="dv">55</span>, <span class="dv">1</span>  (nrow, ncol, nlyr)</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>resolution  <span class="sc">:</span> <span class="dv">1000</span>, <span class="dv">1000</span>  (x, y)</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>extent      <span class="sc">:</span> <span class="dv">4016000</span>, <span class="dv">4071000</span>, <span class="dv">2935000</span>, <span class="dv">3015000</span>  (xmin, xmax, ymin, ymax)</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>coord. ref. <span class="sc">:</span> ETRS89<span class="sc">-</span>extended <span class="sc">/</span> LAEA <span class="fu">Europe</span> (EPSG<span class="sc">:</span><span class="dv">3035</span>) </span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>source      <span class="sc">:</span> file10888755abebd.tiff </span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>name        <span class="sc">:</span> opportunities_people </span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>min value   <span class="sc">:</span>                    <span class="dv">0</span> </span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>max value   <span class="sc">:</span>                <span class="dv">61065</span> </span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">tmp_file</span><span class="op">)</span> <span class="co"># Clean up temporary file</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>class       <span class="sc">:</span> SpatRaster </span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>size        <span class="sc">:</span> <span class="dv">81</span>, <span class="dv">56</span>, <span class="dv">2</span>  (nrow, ncol, nlyr)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>resolution  <span class="sc">:</span> <span class="dv">1000</span>, <span class="dv">1000</span>  (x, y)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>extent      <span class="sc">:</span> <span class="dv">4015000</span>, <span class="dv">4071000</span>, <span class="dv">2934000</span>, <span class="dv">3015000</span>  (xmin, xmax, ymin, ymax)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>coord. ref. <span class="sc">:</span> ETRS89<span class="sc">-</span>extended <span class="sc">/</span> LAEA <span class="fu">Europe</span> (EPSG<span class="sc">:</span><span class="dv">3035</span>) </span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>source      <span class="sc">:</span> file3d183d8ea354.tiff </span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>names       <span class="sc">:</span> opportunities_people,                        gisco_id </span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>min values  <span class="sc">:</span>                    <span class="dv">0</span>, CRS3035RES1000mN3014000E4036000 </span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>max values  <span class="sc">:</span>                <span class="dv">61065</span>, CRS3035RES1000mN2934000E4057000 </span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="convert-to-vector-polygons">Convert to Vector Polygons<a class="anchor" aria-label="anchor" href="#convert-to-vector-polygons"></a>
+</h2>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/e-kotov/tphconv" class="external-link">tphconv</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Locate the example data shipped with the package</span></span>
+<span><span class="va">tph_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
+<span>  <span class="st">"extdata"</span>,</span>
+<span>  <span class="st">"ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"tphconv"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert to a sf</span></span>
+<span><span class="va">vector_layer_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tph_to_vector.html">tph_to_vector</a></span><span class="op">(</span>input_file <span class="op">=</span> <span class="va">tph_file</span>, return_as <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vector_layer_sf</span><span class="op">[</span>, <span class="st">"opportunities_people"</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert to a SpatVector</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
+<span><span class="va">vector_layer_spat_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tph_to_vector.html">tph_to_vector</a></span><span class="op">(</span></span>
+<span>  input_file <span class="op">=</span> <span class="va">tph_file</span>,</span>
+<span>  return_as <span class="op">=</span> <span class="st">"SpatVector"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vector_layer_spat_vector</span>, <span class="st">"opportunities_people"</span><span class="op">)</span></span></code></pre></div>
+<p><em>Plots ommited for brevity</em></p>
 </div>
-<div class="section level1">
-<h1 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
-</h1>
-<ul>
-<li>
-<code><a href="reference/tph_to_raster.html">tph_to_raster()</a></code> – Reads a CSV, reprojects, and rasterizes accessibility data into a SpatRaster or writes it to disk.</li>
-</ul>
+<div class="section level2">
+<h2 id="save-vector-polygons-to-disk">Save Vector Polygons to Disk<a class="anchor" aria-label="anchor" href="#save-vector-polygons-to-disk"></a>
+</h2>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".gpkg"</span><span class="op">)</span></span>
+<span><span class="va">output_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tph_to_vector.html">tph_to_vector</a></span><span class="op">(</span></span>
+<span>  input_file <span class="op">=</span> <span class="va">tph_file</span>,</span>
+<span>  out_vector_file <span class="op">=</span> <span class="va">tmp_file</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check the output</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">read_sf</a></span><span class="op">(</span><span class="va">output_path</span><span class="op">)</span></span>
+<span><span class="va">g</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">tmp_file</span><span class="op">)</span> <span class="co"># Clean up temporary file</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>Simple feature collection with <span class="dv">1600</span> features and <span class="dv">2</span> fields</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>Geometry type<span class="sc">:</span> POLYGON</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>Dimension<span class="sc">:</span>     XY</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>Bounding box<span class="sc">:</span>  xmin<span class="sc">:</span> <span class="dv">4015000</span> ymin<span class="sc">:</span> <span class="dv">2934000</span> xmax<span class="sc">:</span> <span class="dv">4071000</span> ymax<span class="sc">:</span> <span class="dv">3015000</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>Projected CRS<span class="sc">:</span> ETRS89<span class="sc">-</span>extended <span class="sc">/</span> LAEA Europe</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co"># A tibble: 1,600 × 3</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>   opportunities_people gisco_id                                                   geom</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>                  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                                             <span class="er">&lt;</span>POLYGON [m]<span class="sc">&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a> <span class="dv">1</span>                 <span class="dv">2625</span> <span class="fu">CRS3035RES1000mN2934000E4033000</span> ((<span class="dv">4033000</span> <span class="dv">2934000</span>, <span class="dv">4034000</span> <span class="dv">293</span>…</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a> <span class="dv">2</span>                  <span class="dv">375</span> <span class="fu">CRS3035RES1000mN2934000E4057000</span> ((<span class="dv">4057000</span> <span class="dv">2934000</span>, <span class="dv">4058000</span> <span class="dv">293</span>…</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a> <span class="dv">3</span>                 <span class="dv">7463</span> <span class="fu">CRS3035RES1000mN2935000E4032000</span> ((<span class="dv">4032000</span> <span class="dv">2935000</span>, <span class="dv">4033000</span> <span class="dv">293</span>…</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a> <span class="dv">4</span>                <span class="dv">10955</span> <span class="fu">CRS3035RES1000mN2935000E4033000</span> ((<span class="dv">4033000</span> <span class="dv">2935000</span>, <span class="dv">4034000</span> <span class="dv">293</span>…</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a> <span class="dv">5</span>                 <span class="dv">4087</span> <span class="fu">CRS3035RES1000mN2935000E4034000</span> ((<span class="dv">4034000</span> <span class="dv">2935000</span>, <span class="dv">4035000</span> <span class="dv">293</span>…</span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a> <span class="dv">6</span>                 <span class="dv">4804</span> <span class="fu">CRS3035RES1000mN2935000E4037000</span> ((<span class="dv">4037000</span> <span class="dv">2935000</span>, <span class="dv">4038000</span> <span class="dv">293</span>…</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a> <span class="dv">7</span>                  <span class="dv">518</span> <span class="fu">CRS3035RES1000mN2935000E4056000</span> ((<span class="dv">4056000</span> <span class="dv">2935000</span>, <span class="dv">4057000</span> <span class="dv">293</span>…</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a> <span class="dv">8</span>                  <span class="dv">112</span> <span class="fu">CRS3035RES1000mN2935000E4057000</span> ((<span class="dv">4057000</span> <span class="dv">2935000</span>, <span class="dv">4058000</span> <span class="dv">293</span>…</span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a> <span class="dv">9</span>                 <span class="dv">3515</span> <span class="fu">CRS3035RES1000mN2936000E4032000</span> ((<span class="dv">4032000</span> <span class="dv">2936000</span>, <span class="dv">4033000</span> <span class="dv">293</span>…</span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="dv">10</span>                 <span class="dv">7236</span> <span class="fu">CRS3035RES1000mN2936000E4033000</span> ((<span class="dv">4033000</span> <span class="dv">2936000</span>, <span class="dv">4034000</span> <span class="dv">293</span>…</span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co"># ℹ 1,590 more rows</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co"># ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="convert-to-simple-table-with-gisco-ids">Convert to simple table with GISCO IDs<a class="anchor" aria-label="anchor" href="#convert-to-simple-table-with-gisco-ids"></a>
+</h2>
+<p>This is the fastest function, as it does not create geometries, it only returns a table with original data and GISCO IDs, and optionally the original coordinates of the centroids and/or the coorindates of GISCO lower left corners of the grid cells.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/e-kotov/tphconv" class="external-link">tphconv</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Locate the example data shipped with the package</span></span>
+<span><span class="va">tph_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
+<span>  <span class="st">"extdata"</span>,</span>
+<span>  <span class="st">"ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"tphconv"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert to a tibble with GISCO IDs</span></span>
+<span><span class="va">gisco_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tph_to_table.html">tph_to_table</a></span><span class="op">(</span></span>
+<span>  input_file <span class="op">=</span> <span class="va">tph_file</span>,</span>
+<span>  add_centroid_coords <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Optiona, Add centroid coordinates</span></span>
+<span>  add_gisco_corner_coords <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># Optional, Add GISCO lower left corner coordinates</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gisco_table</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>                        gisco_id opportunities_people      lon      lat x_centroid y_centroid    x_ll    y_ll</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="dv">1</span> CRS3035RES1000mN2934000E4033000                 <span class="dv">2625</span> <span class="fl">6.033336</span> <span class="fl">49.45356</span>    <span class="dv">4033500</span>    <span class="dv">2934500</span> <span class="dv">4033000</span> <span class="dv">2934000</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="dv">2</span> CRS3035RES1000mN2934000E4057000                  <span class="dv">375</span> <span class="fl">6.363958</span> <span class="fl">49.46471</span>    <span class="dv">4057500</span>    <span class="dv">2934500</span> <span class="dv">4057000</span> <span class="dv">2934000</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="dv">3</span> CRS3035RES1000mN2935000E4032000                 <span class="dv">7463</span> <span class="fl">6.018829</span> <span class="fl">49.46205</span>    <span class="dv">4032500</span>    <span class="dv">2935500</span> <span class="dv">4032000</span> <span class="dv">2935000</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="dv">4</span> CRS3035RES1000mN2935000E4033000                <span class="dv">10955</span> <span class="fl">6.032604</span> <span class="fl">49.46254</span>    <span class="dv">4033500</span>    <span class="dv">2935500</span> <span class="dv">4033000</span> <span class="dv">2935000</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="dv">5</span> CRS3035RES1000mN2935000E4034000                 <span class="dv">4087</span> <span class="fl">6.046380</span> <span class="fl">49.46302</span>    <span class="dv">4034500</span>    <span class="dv">2935500</span> <span class="dv">4034000</span> <span class="dv">2935000</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="dv">6</span> CRS3035RES1000mN2935000E4037000                 <span class="dv">4804</span> <span class="fl">6.087708</span> <span class="fl">49.46447</span>    <span class="dv">4037500</span>    <span class="dv">2935500</span> <span class="dv">4037000</span> <span class="dv">2935000</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level1">
 <h1 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
@@ -141,15 +247,15 @@
 <h1 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h1>
 <p>To cite package ‘tphconv’ in publications use:</p>
-<p>Kotov E (2025). <em>tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors</em>. R package version 0.0.0.9000, commit f72972255e7f386cf49744ea1c82d299ba1bdb10, <a href="https://github.com/e-kotov/tphconv" class="external-link uri">https://github.com/e-kotov/tphconv</a>.</p>
+<p>Kotov E (2025). <em>tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors</em>. R package version 0.1.0, <a href="https://github.com/e-kotov/tphconv" class="external-link uri">https://github.com/e-kotov/tphconv</a>.</p>
 <p>BibTeX:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  title <span class="ot">=</span> {tphconv<span class="sc">:</span> Convert Transport Poverty Hub Data to Rasters and Vectors},</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  author <span class="ot">=</span> {Egor Kotov},</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span>, commit f72972255e7f386cf49744ea1c82d299ba1bdb10},</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>e<span class="sc">-</span>kotov<span class="sc">/</span>tphconv},</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  title <span class="ot">=</span> {tphconv<span class="sc">:</span> Convert Transport Poverty Hub Data to Rasters and Vectors},</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  author <span class="ot">=</span> {Egor Kotov},</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="fl">1.0</span>},</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>e<span class="sc">-</span>kotov<span class="sc">/</span>tphconv},</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 
   </main><aside class="col-md-3"><div class="links">
