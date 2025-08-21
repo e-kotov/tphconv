@@ -111,7 +111,7 @@ tph_to_vector <- function(
   )
 
   if (add_id) {
-    sf_gridded$id <- tph_generage_grid_id(
+    sf_gridded$gisco_id <- tph_generage_grid_id(
       x = sf_gridded,
       cellsize = resolution_m,
       crs = crs_dst

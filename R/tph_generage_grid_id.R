@@ -9,7 +9,7 @@
 #'   box of the first vector feature (if square).
 #' @param crs An optional CRS string (e.g., "EPSG:3035") to use if the
 #'   object's CRS cannot be automatically determined.
-#' @param style The format of the output ID string: "gisco_full" or "inspire_short".
+#' @param style The format of the output ID string: "gisco_full" or "gisco_short".
 #' @param origin A numeric vector of `c(x, y)` coordinates for the grid's origin.
 #'   Defaults to `c(0, 0)`.
 #' @param raster_mask_na For `SpatRaster` input, if `TRUE`, IDs are only computed
@@ -23,7 +23,7 @@ tph_generage_grid_id <- function(
   x,
   cellsize = NULL,
   crs = NULL,
-  style = c("gisco_full", "inspire_short"),
+  style = c("gisco_full", "gisco_short"),
   origin = c(0, 0),
   raster_mask_na = FALSE,
   raster_layer = 1

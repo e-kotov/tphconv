@@ -8,7 +8,7 @@ tph_generage_grid_id(
   x,
   cellsize = NULL,
   crs = NULL,
-  style = c("gisco_full", "inspire_short"),
+  style = c("gisco_full", "gisco_short"),
   origin = c(0, 0),
   raster_mask_na = FALSE,
   raster_layer = 1
@@ -24,7 +24,7 @@ box of the first vector feature (if square).}
 \item{crs}{An optional CRS string (e.g., "EPSG:3035") to use if the
 object's CRS cannot be automatically determined.}
 
-\item{style}{The format of the output ID string: "gisco_full" or "inspire_short".}
+\item{style}{The format of the output ID string: "gisco_full" or "gisco_short".}
 
 \item{origin}{A numeric vector of \code{c(x, y)} coordinates for the grid's origin.
 Defaults to \code{c(0, 0)}.}
