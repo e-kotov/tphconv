@@ -23,7 +23,6 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-DataLicense: CC-BY-4.0
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)

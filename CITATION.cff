@@ -8,11 +8,13 @@ message: 'To cite package "tphconv" in publications use:'
 type: software
 license: MIT
 title: 'tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors'
-version: 0.0.0.9000
+version: 0.1.0
 abstract: Convert Transport Poverty Hub Data to Rasters and Vectors. The source data
   comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data
   more efficiently, this package provides helper functions to quickly convert this
-  data to spatial raster grids and vector polygon grids.
+  data to spatial raster grids and vector polygon grids with GISCO IDs. Alternatively,
+  GISCO IDs can be assigned to the data without any geometry generation in a 'data.frame'
+  with optional coordinates columns.
 authors:
 - family-names: Kotov
   given-names: Egor
@@ -74,6 +76,18 @@ references:
     orcid: https://orcid.org/0000-0001-8049-7069
   year: '2025'
   doi: 10.32614/CRAN.package.sf
+- type: software
+  title: sfheaders
+  abstract: 'sfheaders: Converts Between R Objects and Simple Feature Objects'
+  notes: Imports
+  url: https://dcooley.github.io/sfheaders/
+  repository: https://CRAN.R-project.org/package=sfheaders
+  authors:
+  - family-names: Cooley
+    given-names: David
+    email: david.cooley.au@gmail.com
+  year: '2025'
+  doi: 10.32614/CRAN.package.sfheaders
 - type: software
   title: terra
   abstract: 'terra: Spatial Data Analysis'

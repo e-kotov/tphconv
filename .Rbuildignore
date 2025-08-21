@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
+^README\.qmd$
 ^cran-comments\.md$
 ^\.github$
 ^codecov\.yml$
@@ -11,3 +12,4 @@
 ^private$
 ^CITATION\.cff$
 ^codemeta\.json$
+^.*\.zenodo.json$

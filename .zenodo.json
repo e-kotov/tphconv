@@ -1,0 +1,23 @@
+{
+  "title": "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors",
+  "version": "0.1.0",
+  "license": "MIT",
+  "upload_type": "software",
+  "description": "<p>Convert Transport Poverty Hub Data to Rasters and Vectors.\n    The source data comes in CSV files with coordinates in WGS84\n    (EPSG:4326). To work with this data more efficiently, this package\n    provides helper functions to quickly convert this data to spatial\n    raster grids and vector polygon grids with GISCO IDs. Alternatively,\n    GISCO IDs can be assigned to the data without any geometry generation\n    in a 'data.frame' with optional coordinates columns.<\/p>",
+  "keywords": [
+    "transport poverty hub",
+    "GISCO",
+    "R",
+    "vector data",
+    "raster data"
+  ],
+  "access_right": "open",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Kotov, Egor",
+      "affiliation": "Max Planck Institute for Demographic Research; Universitat Pompeu Fabra",
+      "orcid": "0000-0001-6690-5345"
+    }
+  ]
+}
