@@ -1,3 +1,7 @@
+# tphconv 0.1.1 (2025-08-21)
+
+* Added automatic conversion of `-1` values to `NA` in `tph_to_vector` and `tph_to_table`, ensuring that missing data is handled correctly.
+
 # tphconv 0.1.0 (2025-08-21)
 
 * Bugs fixed in `tph_to_raster`, now the grid is correctly aligned with the reference GISCO grid.
