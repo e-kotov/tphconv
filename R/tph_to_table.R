@@ -61,6 +61,9 @@ tph_to_table <- function(
   }
   names(df) <- sanitize_names(names(df))
 
+  # convert -1 values to NAs as per TPH spec
+  df[[field_name]][df[[field_name]] == -1] <- NA
+
   # 3. Project coordinates from source to destination CRS
   coords_dst <- sf::sf_project(
     from = sf::st_crs(crs_src)$wkt,

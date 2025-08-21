@@ -137,3 +137,64 @@ test_that("specific gisco id matches output", {
       target_gisco_id
   )
 })
+
+test_that("-1 values inserted into real data are converted to NA", {
+  # 1. Locate and read the original, unmodified package data
+  tph_file <- system.file(
+    "extdata",
+    "ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz",
+    package = "tphconv"
+  )
+  original_df <- readr::read_csv(tph_file, show_col_types = FALSE)
+
+  # 2. Modify the data in memory
+  modified_df <- original_df
+  rows_to_modify <- c(335, 600)
+
+  # Find the data column name programmatically
+  data_col <- setdiff(names(original_df), c("lon", "lat"))
+
+  # Check if the data frame is large enough to avoid errors
+  if (nrow(modified_df) < max(rows_to_modify)) {
+    skip("The data file has fewer rows than the test expects.")
+  }
+
+  # Replace the values in our chosen rows with -1
+  modified_df[[data_col]][rows_to_modify] <- -1
+
+  # reset data col name to ensure it is consistent
+  data_col <- "value"
+
+  # 3. Write the modified data to a temporary file for testing
+  temp_mod_file <- tempfile(fileext = ".csv")
+  readr::write_csv(modified_df, temp_mod_file)
+  on.exit(unlink(temp_mod_file)) # Ensure cleanup after the test
+
+  # 4. Run the functions and verify the output
+
+  # Test tph_to_table()
+  table_out <- tph_to_table(temp_mod_file, out_column_name = data_col)
+  expect_true(all(is.na(table_out[[data_col]][rows_to_modify])))
+  expect_equal(sum(is.na(table_out[, data_col])), 2) # Ensure only modified rows are NA
+
+  # Test tph_to_vector()
+  vector_out <- tph_to_vector(temp_mod_file, out_column_name = data_col)
+  expect_true(all(is.na(vector_out[[data_col]][rows_to_modify])))
+  expect_false(is.na(vector_out[[data_col]][1])) # Check that other rows are unaffected
+
+  # Test tph_to_raster()
+  raster_out <- tph_to_raster(temp_mod_file, out_column_name = data_col)
+
+  # Get the original lon/lat coordinates for the rows we changed
+  coords_to_check <- original_df[rows_to_modify, c("lon", "lat")]
+
+  # Extract raster values at these locations. terra::extract handles reprojection.
+  extracted_vals <- terra::extract(
+    raster_out,
+    coords_to_check,
+    method = "simple"
+  )
+
+  # The extracted values for the modified points should be NA
+  expect_true(all(is.na(extracted_vals[[data_col]])))
+})

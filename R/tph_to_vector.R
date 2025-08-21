@@ -70,6 +70,9 @@ tph_to_vector <- function(
   }
   names(df) <- sanitize_names(names(df))
 
+  # convert -1 values to NAs as per TPH spec
+  df[[field_name]][df[[field_name]] == -1] <- NA
+
   wkt_src <- sf::st_crs(crs_src)$wkt
   wkt_dst <- sf::st_crs(crs_dst)$wkt
   coords_dst <- sf::sf_project(
