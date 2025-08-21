@@ -1,10 +1,27 @@
 ---
-title: "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors"
 format: gfm
 default-image-extension: ""
 execute: 
   eval: false
 ---
+
+
+# tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors with GISCO IDs
+
+<!-- badges: start -->
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/tphconv)](https://CRAN.R-project.org/package=tphconv) -->
+<!-- [![CRAN/METACRAN Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/tphconv?color=blue)](https://CRAN.R-project.org/package=tphconv){target="_blank"} -->
+<!-- [![CRAN/METACRAN Downloads per month](https://cranlogs.r-pkg.org/badges/tphconv?color=blue)](https://CRAN.R-project.org/package=tphconv){target="_blank"} -->
+[![R-CMD-check](https://github.com/e-kotov/tphconv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/e-kotov/tphconv/actions/workflows/R-CMD-check.yaml)
+[![pkgcheck](https://github.com/e-kotov/tphconv/workflows/pkgcheck/badge.svg)](https://github.com/e-kotov/tphconv/actions?query=workflow%3Apkgcheck)
+
+<!-- [![DOI](https://zenodo.org/badge/DOI/10.32614/CRAN.package.tphconv.svg)](https://doi.org/10.32614/CRAN.package.tphconv) -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16921064.svg)](https://doi.org/10.5281/zenodo.16921064)
+<!-- badges: end -->
+
+
 
 # Overview
 
