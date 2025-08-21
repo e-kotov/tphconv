@@ -66,3 +66,62 @@ test_that("data values from raster and vector outputs are consistent", {
   # Check that the number of valid data points is the same
   expect_equal(nrow(v_grid), nrow(na.omit(comparison_df)))
 })
+
+test_that("specific gisco id matches output", {
+  # This test requires sf
+  if (!requireNamespace("sf", quietly = TRUE)) {
+    skip("sf package not available")
+  }
+
+  # 1. Define input file
+  tph_file <- system.file(
+    "extdata",
+    "ver1_0_LU_1km_pt_ppl_within_10-20_min.csv.gz",
+    package = "tphconv"
+  )
+
+  # 2. Generate the vector grid
+  v_grid <- tph_to_vector(
+    tph_file,
+    return_as = "sf",
+    out_column_name = "opportunities"
+  )
+
+  # 3. Check for a specific gisco_id
+  expect_true(
+    v_grid[v_grid$opportunities == 10955, ]$gisco_id ==
+      "CRS3035RES1000mN2935000E4033000"
+  )
+
+  # Check for a specific gisco_id in the raster grid
+  r_grid <- tph_to_raster(
+    tph_file,
+    out_column_name = "opportunities"
+  )
+
+  target_gisco_id <- "CRS3035RES1000mN2935000E4033000"
+  target_x <- 4033000
+  target_y <- 2935000
+
+  # 6. Find the cell index corresponding to these coordinates.
+  # We add half the resolution (500m) to get the cell's center point.
+  cell_index <- terra::cellFromXY(r_grid, cbind(target_x + 500, target_y + 500))
+
+  # 7. Extract the values from that specific cell
+  # r_grid[cell_index] returns a data.frame with columns for each layer
+  values_in_cell <- r_grid[cell_index]
+
+  # 8. Compare the extracted opportunity value with the expected value
+  expect_equal(
+    values_in_cell$opportunities,
+    10955,
+    label = "The raster cell value at the specified GISCO ID should match"
+  )
+
+  # 9. Compare the extracted gisco_id text label with the expected value
+  expect_equal(
+    as.character(values_in_cell$gisco_id),
+    target_gisco_id,
+    label = "The gisco_id label in the raster should match the expected ID"
+  )
+})
