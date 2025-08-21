@@ -72,6 +72,9 @@ tph_generage_grid_id <- function(
     xll <- coords[, "x"] - resxy[1] / 2
     yll <- coords[, "y"] - resxy[2] / 2
   } else if (is_sv) {
+    if (length(x) == 0) {
+      return(character(0))
+    }
     if (is.null(cellsize)) {
       ex1 <- terra::ext(x[1])
       w1 <- ex1$xmax - ex1$xmin
@@ -95,6 +98,14 @@ tph_generage_grid_id <- function(
     }
   } else {
     # sf/sfc
+    # FIX: Use nrow() for sf objects and length() for sfc objects to correctly
+    # check for empty inputs.
+    if (
+      (inherits(x, "sf") && nrow(x) == 0) ||
+        (inherits(x, "sfc") && length(x) == 0)
+    ) {
+      return(character(0))
+    }
     if (is.null(cellsize)) {
       bb1 <- sf::st_bbox(sf::st_geometry(x)[[1]])
       w1 <- bb1["xmax"] - bb1["xmin"]
