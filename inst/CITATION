@@ -1,0 +1,11 @@
+bibentry(
+  key      = "tphconv",
+  bibtype  = "Manual",
+  title    = "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors with
+    GISCO IDs",
+  author   = person("Egor", "Kotov", , "kotov.egor@gmail.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0001-6690-5345")),
+  year     = "2025",
+  url      = "https://github.com/e-kotov/tphconv",
+  doi      = "10.5281/zenodo.16921064"
+)

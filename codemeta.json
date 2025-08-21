@@ -120,7 +120,27 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "96.104KB",
+  "fileSize": "96.526KB",
+  "citation": [
+    {
+      "@type": "SoftwareSourceCode",
+      "datePublished": "2025",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Egor",
+          "familyName": "Kotov",
+          "email": "kotov.egor@gmail.com",
+          "@id": "https://orcid.org/0000-0001-6690-5345"
+        }
+      ],
+      "name": "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors with\n    GISCO IDs",
+      "identifier": "10.5281/zenodo.16921064",
+      "url": "https://github.com/e-kotov/tphconv",
+      "@id": "https://doi.org/10.5281/zenodo.16921064",
+      "sameAs": "https://doi.org/10.5281/zenodo.16921064"
+    }
+  ],
   "releaseNotes": "https://github.com/e-kotov/tphconv/blob/master/NEWS.md",
   "readme": "https://github.com/e-kotov/tphconv/blob/main/README.md"
 }

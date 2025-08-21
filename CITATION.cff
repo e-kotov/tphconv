@@ -10,6 +10,7 @@ license: MIT
 title: 'tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors with GISCO
   IDs'
 version: 0.1.0
+doi: 10.5281/zenodo.16921064
 abstract: Convert Transport Poverty Hub Data to Rasters and Vectors. The source data
   comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data
   more efficiently, this package provides helper functions to quickly convert this
@@ -21,6 +22,18 @@ authors:
   given-names: Egor
   email: kotov.egor@gmail.com
   orcid: https://orcid.org/0000-0001-6690-5345
+preferred-citation:
+  type: manual
+  title: 'tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors with
+    GISCO IDs'
+  authors:
+  - family-names: Kotov
+    given-names: Egor
+    email: kotov.egor@gmail.com
+    orcid: https://orcid.org/0000-0001-6690-5345
+  year: '2025'
+  url: https://github.com/e-kotov/tphconv
+  doi: 10.5281/zenodo.16921064
 repository-code: https://github.com/e-kotov/tphconv
 url: http://www.ekotov.pro/tphconv/
 contact:
