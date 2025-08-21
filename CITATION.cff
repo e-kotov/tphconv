@@ -7,7 +7,8 @@ cff-version: 1.2.0
 message: 'To cite package "tphconv" in publications use:'
 type: software
 license: MIT
-title: 'tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors'
+title: 'tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors with GISCO
+  IDs'
 version: 0.1.0
 abstract: Convert Transport Poverty Hub Data to Rasters and Vectors. The source data
   comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data

@@ -3,7 +3,7 @@
   "@type": "SoftwareSourceCode",
   "identifier": "tphconv",
   "description": "Convert Transport Poverty Hub Data to Rasters and Vectors. The source data comes in CSV files with coordinates in WGS84 (EPSG:4326). To work with this data more efficiently, this package provides helper functions to quickly convert this data to spatial raster grids and vector polygon grids with GISCO IDs. Alternatively, GISCO IDs can be assigned to the data without any geometry generation in a 'data.frame' with optional coordinates columns.",
-  "name": "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors",
+  "name": "tphconv: Convert Transport Poverty Hub Data to Rasters and Vectors with\n    GISCO IDs",
   "relatedLink": "http://www.ekotov.pro/tphconv/",
   "codeRepository": "https://github.com/e-kotov/tphconv",
   "issueTracker": "https://github.com/e-kotov/tphconv/issues",
@@ -120,7 +120,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "94.723KB",
+  "fileSize": "94.742KB",
   "releaseNotes": "https://github.com/e-kotov/tphconv/blob/master/NEWS.md",
   "readme": "https://github.com/e-kotov/tphconv/blob/main/README.md"
 }
